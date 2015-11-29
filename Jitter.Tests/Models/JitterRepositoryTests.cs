@@ -234,5 +234,95 @@ namespace Jitter.Tests.Models
             Assert.AreEqual(expected_users[1].Handle, actual_users[1].Handle);
         }
 
+        [TestMethod]
+        public void JitterRepositoryEnsureICanSearchByFirstName()
+        {
+            // Arrange
+            var expected = new List<JitterUser>
+            {
+                new JitterUser { Handle = "Adam1", FirstName = "Adam" },
+                new JitterUser { Handle = "HappyToes", FirstName = "Ruby"},
+                new JitterUser { Handle = "baseball25", FirstName = "Noah" },
+                new JitterUser { Handle = "superhero1", FirstName = "Sam" },
+                new JitterUser { Handle = "batman", FirstName = "Samuel"}
+
+            };
+            mock_set.Object.AddRange(expected);
+
+            ConnectMocksToDataStore(expected);
+            // Act
+            string firstName = "Sam";
+            List<JitterUser> expected_users = new List<JitterUser>
+            {
+                new JitterUser { Handle = "batman", FirstName = "Samuel"},
+                new JitterUser { Handle = "superhero1", FirstName = "Sam" }
+            };
+            List<JitterUser> actual_users = repository.SearchByFirstName(firstName);
+            // Assert
+            //Assert.AreEqual("Sam", firstName);
+            Assert.AreEqual(expected_users[0].FirstName, actual_users[0].FirstName);
+            Assert.AreEqual(expected_users[1].FirstName, actual_users[1].FirstName);
+        }
+
+        [TestMethod]
+        public void JitterRepositoryEnsureICanSearchByLastName()
+        {
+            // Arrange
+            var expected = new List<JitterUser>
+            {
+                new JitterUser { Handle = "adam1", LastName = "Rice" },
+                new JitterUser { Handle = "rumbadancer2", LastName = "Samuelson"},
+                new JitterUser { Handle = "treehugger", LastName = "Olson" },
+                new JitterUser { Handle = "treedancer", LastName = "Rice"}
+
+            };
+            mock_set.Object.AddRange(expected);
+
+            ConnectMocksToDataStore(expected);
+            // Act
+            string lastName = "Rice";
+            List<JitterUser> expected_users = new List<JitterUser>
+            {
+                new JitterUser { Handle = "adam1", LastName = "Rice" },
+                new JitterUser { Handle = "treedancer", LastName = "Rice" }
+            };
+            List<JitterUser> actual_users = repository.SearchByLastName(lastName);
+            
+            Assert.AreEqual(expected_users[0].LastName, actual_users[0].LastName);
+            Assert.AreEqual(expected_users[1].LastName, actual_users[1].LastName);
+        }
+
+        [TestMethod]
+        public void JitterRepositoryEnsureICanSearchByFirstOrLastName()
+        {
+            // Arrange
+            var expected = new List<JitterUser>
+            {
+                new JitterUser { Handle = "adam1", FirstName = "Adam", LastName = "Rice" },
+                new JitterUser { Handle = "rumbadancer2", FirstName = "Ruby", LastName = "Samuelson"},
+                new JitterUser { Handle = "treehugger", FirstName = "Samuel", LastName = "Olson" },
+                new JitterUser { Handle = "treedancer", FirstName = "Wade", LastName = "Rice"}
+
+            };
+            mock_set.Object.AddRange(expected);
+
+            ConnectMocksToDataStore(expected);
+            // Act
+            string searchName = "Samuel";
+            List<JitterUser> expected_users = new List<JitterUser>
+            {
+                new JitterUser { Handle = "rumbadancer2", FirstName = "Ruby", LastName = "Samuelson"},
+                new JitterUser { Handle = "treehugger", FirstName = "Samuel", LastName = "Olson" }
+            };
+            List<JitterUser> actual_users = repository.SearchByFirstOrLastName(searchName);
+
+            Assert.AreEqual(expected_users[0].LastName, actual_users[0].LastName);
+            Assert.AreEqual(expected_users[1].LastName, actual_users[1].LastName);
+            Assert.AreEqual(expected_users[0].FirstName, actual_users[0].FirstName);
+            Assert.AreEqual(expected_users[1].FirstName, actual_users[1].FirstName);
+
+
+        }
+
     }
 }

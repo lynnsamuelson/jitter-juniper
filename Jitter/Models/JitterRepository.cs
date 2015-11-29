@@ -63,5 +63,29 @@ namespace Jitter.Models
             found_users.Sort();
             return found_users;
         }
+
+        public List<JitterUser> SearchByLastName(string lastName)
+        {
+            var query = from user in _context.JitterUsers select user;
+            List<JitterUser> found_users = query.Where(user => user.LastName.Contains(lastName)).ToList();
+            found_users.Sort();
+            return found_users;
+        }
+
+        public List<JitterUser> SearchByFirstName(string firstName)
+        {
+            var query = from user in _context.JitterUsers select user;
+            List<JitterUser> found_users = query.Where(user => user.FirstName.Contains(firstName)).ToList();
+            found_users.Sort();
+            return found_users;
+        }
+
+        public List<JitterUser> SearchByFirstOrLastName(string searchName)
+        {
+            var query = from user in _context.JitterUsers select user;
+            List<JitterUser> found_users = query.Where(user => user.FirstName.Contains(searchName) || user.LastName.Contains(searchName)).ToList();
+            found_users.Sort();
+            return found_users;
+        }
     }
 }
