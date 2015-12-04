@@ -9,13 +9,10 @@
 <h3>@ViewBag.Message</h3>
 
 <p>Use this area to provide additional information.</p>
-
 <ul>
 
-@foreach (var item in Model) //Model is from line 1 when we used @model
-{
-    <li>@item</li> //if you just do item the puts word "item" in your page
-}
+    @foreach (var item in Model)
+    {
+    <li>@item</li>
+    }
 </ul>
-
-
