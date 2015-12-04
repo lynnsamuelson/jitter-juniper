@@ -16,3 +16,10 @@
     <li>@item</li>
     }
 </ul>
+
+<ul>
+    @foreach (var item in ViewBag.SomeData as IEnumerable<string>) //if you make your own type need to case with as IEnumberable
+    {
+        <li>@item</li>
+    }
+</ul>
