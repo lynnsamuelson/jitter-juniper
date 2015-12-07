@@ -8,7 +8,7 @@ namespace Jitter.Models
 {
     public class Jot : IComparable
     {
-        public JitterUser Author { get; set; }
+        public virtual JitterUser Author { get; set; }
         [Required]
         public string Content { get; set; }
         public DateTime Date { get; set; }
