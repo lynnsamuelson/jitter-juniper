@@ -11,7 +11,7 @@ namespace Jitter.Models
         [Key]
         public int JitterUserId { get; set; }
 
-        public virtual ApplicationUser RealUser { get; set; }
+        public virtual ApplicationUser RealUser { get; set; } //set relationship between application user and real user
 
         [MaxLength(161)]
         public string Description { get; set; }
